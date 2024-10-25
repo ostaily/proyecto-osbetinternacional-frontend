@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Ejemplo from '../views/cargos.vue'
-import Paises from '../views/paises.vue'
+import Cargos from '../views/cargos.vue'
 import LayoutMain from '../components/LayoutMain.vue'
 import Login from '../components/Login.vue'
+import Paises  from '../components/Paises.vue'
 
 const routes = [
     {
@@ -18,13 +18,13 @@ const routes = [
     {
         path: '/cargos',
         name: 'Cargos',
-        component: Ejemplo,
+        component: Cargos,
     },
 
     {
         path: '/paises',
         name: 'Paises',
-        component: Paises,
+        component: Paises
     }
 ]
 const router = createRouter({

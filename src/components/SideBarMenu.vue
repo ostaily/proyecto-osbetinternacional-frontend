@@ -5,7 +5,7 @@
       <el-menu
         default-active="1"
         class="el-menu-vertical-demo"
-        background-color="#242629"
+        background-color="#2d9c82"
         text-color="#fff"
         collapse-transition
       >

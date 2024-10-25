@@ -17,9 +17,10 @@ import  SideBarMenu from './SideBarMenu.vue'
             </el-aside>
 
             <el-main>
-                main
-               <slot name="slotLayout"> </slot>
+             <slot name="slotLayout"> </slot>
+             <slot name="slotLayout2"> </slot>
             </el-main>
+          
         </el-container>
 
     </el-container>
