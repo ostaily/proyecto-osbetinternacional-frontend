@@ -1,34 +1,38 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Cargos from '../views/cargos.vue'
+import {createRouter, createWebHistory} from 'vue-router'
+import Paises from '../views/paises/paises.vue'
+import Cargos from '../views/cargos/cargos.vue'
 import LayoutMain from '../components/LayoutMain.vue'
 import Login from '../components/Login.vue'
-import Paises  from '../components/Paises.vue'
 
-const routes = [
-    {
-        path: '/',
-        name: 'home',
-        component: LayoutMain,
-    },
-    {
-        path: '/login.vue',
-        name: 'login',
-        component: Login,
-    },
-    {
-        path: '/cargos',
-        name: 'Cargos',
-        component: Cargos,
-    },
+const routes =[
 
-    {
-        path: '/paises',
-        name: 'Paises',
-        component: Paises
-    }
+{
+    path:'/',
+    name:'home',
+    component:LayoutMain,
+},
+{
+    path:'/login',
+    name:'login',
+    component:Login,
+},
+
+{
+    path:'/pais',
+    name:'Paises',
+    component: Paises,
+},
+{
+    path:'/cargos',
+    name:'Cargos',
+    component: Cargos,
+}
+
 ]
-const router = createRouter({
-    history: createWebHistory(),
+
+const router= createRouter({
+    history:createWebHistory(),
     routes,
 })
+
 export default router;

@@ -1,8 +1,8 @@
 <template>
   <el-menu
     :default-active="activeIndex"
-    background-color="#41e5bf"
-    text-color="fff"
+      background-color="#16161a "
+      text-color="#fff"
     class="el-menu-demo"
     mode="horizontal"
     :ellipsis="false"
@@ -11,15 +11,16 @@
     <el-menu-item index="0">
       <img
         style="width: 100px"
-        
+       
         alt="Element logo"
       />
     </el-menu-item>
-    <el-sub-menu index="1">
-      <template #title>Bastian</template>
+
+    <el-sub-menu index="1" >
+      <template #title>Bastian Majin</template>
       <el-menu-item index="2-1">Perfil</el-menu-item>
       <el-menu-item index="2-2">Cerrar Sesion</el-menu-item>
-      
+
     </el-sub-menu>
   </el-menu>
 </template>
@@ -35,30 +36,15 @@ const handleSelect = (key: string, keyPath: string[]) => {
 
 <style scoped>
 .el-menu-demo{
-  position: relative;
   top: 0;
-  width:100%;
+  width: 100%;
   z-index: 10;
+}
 
+.el-menu-item, 
+span.el-avatar.el-avatar--circle {
+margin-right: auto;
+padding: 0;
 }
 
 </style>
-
-<!--<template>
-
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-</script>
-
-<style>
-.el-menu--horizontal > .el-menu-item:nth-child(1) {
-  margin-right: auto;
-}
-</style>-->

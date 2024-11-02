@@ -1,7 +1,7 @@
 <script setup>
 import { RouterView } from 'vue-router';
-import cargos from './components/Cargos.vue'
-import Paises from './components/Paises.vue'
+import cargos from './views/cargos/cargos.vue'
+import Paises from './views/paises/paises.vue'
 </script>
 
 <template>
