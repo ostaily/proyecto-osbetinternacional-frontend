@@ -1,5 +1,5 @@
 {
-  "name": "proyecto-osbetinternacional-frontend",
+  "name": "app-adso",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,9 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "element": "^0.1.4",
-    "element-plus": "^2.8.6",
-    "plus": "^0.1.0",
+    "axios": "^1.7.7",
+    "element-plus": "^2.8.5",
     "vue": "^3.4.37",
     "vue-router": "^4.4.5"
   },

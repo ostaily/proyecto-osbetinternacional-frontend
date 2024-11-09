@@ -1,15 +1,15 @@
 <template>
     <LayoutMain>
         <template #slotLayout>
-            <Header :titulo="'Cargos'" :tituloBoton="'Crear Cargo'" :abrir="abrirFormulario" />
+            <Header :titulo="'Tallas'" :tituloBoton="'Crear Talla'" :abrir="abrirFormulario" />
 
 
-            <Formulario :titulo="'Gestion de Cargos'" v-model:is-open="mostrarFormulario" :is-edit="editandoFormulario"
+            <Formulario :titulo="'Gestion de Tallas'" v-model:is-open="mostrarFormulario" :is-edit="editandoFormulario"
                 @save="guardarDatos">
                 <template #slotForm>
                     <el-row :gutter="20">
                         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                            <FormCargos v-model:is-open="mostrarFormulario" :is-edit="editandoFormulario" ref="formRef"
+                            <FormTallas v-model:is-open="mostrarFormulario" :is-edit="editandoFormulario" ref="formRef"
                                 :areas="areas" />
                         </el-col>
                     </el-row>
@@ -17,35 +17,30 @@
 
             </Formulario>
 
-            <el-table :data="cargos" stripe style="width: 100%" >
-                <el-table-column prop="nombre" label="nombre"  />
-                <el-table-column prop="salario" label="salario"  />      
-                <el-table-column prop="id_area" label="Area"  />      
+            <el-table :data="cargos" stripe style="width: 100%">
+                <el-table-column prop="nombre" label="Nombre" />
+
                 <el-table-column fixed="right" label="Acciones" min-width="120">
                     <template #default>
-                        <el-button link type="primary" size="large" :icon="Edit" @click="editarFormulario">
-                        </el-button>
+                        <el-button link type="primary" size="large" :icon="Edit" @click="editarFormulario"></el-button>
                         <el-button link type="danger" :icon="Delete"></el-button>
                     </template>
                 </el-table-column>
             </el-table>
 
         </template>
-
-
     </LayoutMain>
 </template>
-
-
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
 import LayoutMain from '../../components/LayoutMain.vue';
 import Formulario from '../../components/Formulario.vue';
 import Header from '../../components/Header.vue';
 import { Delete, Edit } from "@element-plus/icons-vue"
-import FormCargos from './components/formCargos.vue';
+import formTallas from './components/formTallas.vue';
 import { ElMessage } from 'element-plus'
 import axios from 'axios';
+import FormTallas from './components/formTallas.vue';
 
 
 const mostrarFormulario = ref(false)
@@ -77,12 +72,12 @@ const tableData = [
 const guardarDatos = async () => {
     const validacion = await formRef.value?.validarFormulario()
     if (validacion) {
-        await crearCargo()
+        await crearTalla()
     }
 
 }
 
-const crearCargo = async () => {
+const crearTalla = async () => {
 
     const url = 'http://127.0.0.1:8000/api/cargos/save'
 
@@ -97,19 +92,19 @@ const crearCargo = async () => {
                 console.log(response);
                 formRef.value?.limpiarFormulario()
                 ElMessage({
-                    message: 'El cargo se creo con exito    .',
+                    message: 'La Talla se creo con exito    .',
                     type: 'success',
                 })
-                datosCargo()
+                datosTalla()
                 mostrarFormulario.value = false
-                
+
             })
             .catch(function (error) {
                 console.log(error);
             });
 
     } catch (error) {
-        console.error('error crear cargo ', error)
+        console.error('error crear Talla ', error)
     }
 
 
@@ -117,46 +112,25 @@ const crearCargo = async () => {
 
 
 }
-const actualizarCargo = async () => {
+const actualizarTalla = async () => {
 
-    console.log('se actualizo el cargo');
-
-}
-const eliminarCargo = async () => {
-
-    console.log('se elimino el cargo');
+    console.log('se actualizo la Talla');
 
 }
-const datosCargo = async () => {
+const eliminarTalla = async () => {
 
-    const url = 'http://127.0.0.1:8000/api/cargos/datos'
-
-try {
-    axios.get(url)
-        .then(function (response) {
-            cargos.value = response.data.result
-            console.log(response);
-
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-} catch (error) {
-    console.error('error crear cargo ', error)
-}
-
+    console.log('se elimino la Talla');
 
 }
-const getAreas = async () => {
+const datosTalla = async () => {
 
-    const url = 'http://127.0.0.1:8000/api/areas/datos'
+    const url = 'https://mocki.io/v1/243ff2fd-2304-45f0-b6b7-ab5a803adb08'
 
     try {
         axios.get(url)
             .then(function (response) {
-                areas.value = response.data.result
-                console.log(response);
+                console.log(response.data);
+                cargos.value = response.data
 
             })
             .catch(function (error) {
@@ -164,17 +138,15 @@ const getAreas = async () => {
             });
 
     } catch (error) {
-        console.error('error crear cargo ', error)
+        console.error('error crear Talla ', error)
     }
-
-
 
 
 }
 
+
 onMounted(() => {
-    getAreas()
-    datosCargo()
+    datosTalla()
 })
 
 </script>
