@@ -53,18 +53,9 @@ const validarFormulario = () => {
 
         })
     })
-
-
 }
 
 defineExpose({ validarFormulario, formulario, limpiarFormulario })
 
-
-
-
 </script>
-
-
-
-
 <style scoped></style>

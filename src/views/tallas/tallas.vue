@@ -37,7 +37,6 @@ import LayoutMain from '../../components/LayoutMain.vue';
 import Formulario from '../../components/Formulario.vue';
 import Header from '../../components/Header.vue';
 import { Delete, Edit } from "@element-plus/icons-vue"
-import formTallas from './components/formTallas.vue';
 import { ElMessage } from 'element-plus'
 import axios from 'axios';
 import FormTallas from './components/formTallas.vue';
