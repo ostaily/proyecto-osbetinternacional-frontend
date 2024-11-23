@@ -5,6 +5,9 @@ import LayoutMain from '../components/LayoutMain.vue'
 import Login from '../components/Login.vue'
 import Tallas from '../views/tallas/tallas.vue'
 import Colores from '../views/colores/colores.vue'
+import Telas from '../views/telas/telas.vue'
+import Contacto from '../views/contacto/contacto.vue'
+import Usuario from '../views/usuario/usuario.vue'
 
 const routes =[
 
@@ -39,7 +42,21 @@ const routes =[
     name:'Colores',
     component: Colores,
 },
-
+{
+    path:'/telas',
+    name:'Telas',
+    component: Telas,
+},
+{
+    path:'/contactos',
+    name:'Contacto',
+    component: Contacto,
+},
+{
+    path:'/usuarios',
+    name:'Usuario',
+    component: Usuario,
+},
 ]
 
 const router= createRouter({

@@ -65,7 +65,7 @@ const editarFormulario = async () => {
 
 const tableData = [
     {
-        name: '2Oscar',
+        name: 'Pepe',
         address: 'No. 189, Grove St, Los Angeles',
         phone: '311555',
     }
