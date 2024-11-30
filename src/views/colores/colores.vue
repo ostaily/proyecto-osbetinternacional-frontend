@@ -4,7 +4,8 @@
             <Header :titulo="'Colores'" :tituloBoton="'Crear Color'" :abrir="abrirFormulario" />
 
 
-            <Formulario :titulo="'Gestion de Colores'" v-model:is-open="mostrarFormulario" :is-edit="editandoFormulario"
+            <Formulario :titulo="'Gestion de Colores'" v-model:is-open="mostrarFormulario"                                                          
+            :is-edit="editandoFormulario"
                 @save="guardarDatos">
                 <template #slotForm>
                     <el-row :gutter="20">
@@ -50,17 +51,20 @@ const mostrarFormulario = ref(false)
 const editandoFormulario = ref(false)
 const formRef = ref()
 const areas = ref([])
-const cargos = ref([])
+const colores = ref([])
+const dataColoresById = ref()
 
 
 const abrirFormulario = () => {
+
+
     mostrarFormulario.value = true
     editandoFormulario.value = false
 }
 
-const editarFormulario = async () => {
-    mostrarFormulario.value = true
-    editandoFormulario.value = true
+const editarFormulario = async (id) => {
+    dataColoresById.value = true
+    console.value = true
 }
 
 const tableData = [
@@ -126,7 +130,7 @@ const datosColor = async () => {
     try {
         axios.get(url)
             .then(function (response) {
-                cargos.value = response.data
+                colores.value = response.data
                 console.log(response);
 
             })
