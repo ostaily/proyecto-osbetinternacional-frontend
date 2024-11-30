@@ -63,7 +63,7 @@
 
   const tableData = [
   {
-    name: 'Bastian Alexander',
+    name: 'Alexander',
     charge: 'Piloto',
   }
 ]
