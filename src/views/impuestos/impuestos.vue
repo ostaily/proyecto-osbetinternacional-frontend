@@ -1,24 +1,25 @@
 <template>
     <LayoutMain>
         <template #slotLayout>
-            <Header :titulo="'Telas'" :tituloBoton="'Crear Talla'" :abrir="abrirFormulario" />
+            <Header :titulo="'Impuestos'" :tituloBoton="'Crear Impuesto'" :abrir="abrirFormulario" />
 
             
-            <Formulario :titulo="'Gestion de Telas'" v-model:is-open="mostrarFormulario"
+            <Formulario :titulo="'Gestion de Impuestos'" v-model:is-open="mostrarFormulario"
                 :is-edit="editandoFormulario" @save="guardarDatos" @update="actualizarDatos">
                 <template #slotForm>
                     <el-row :gutter="20">
                         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                            <FormTallas v-model:is-open="mostrarFormulario" :is-edit="editandoFormulario" ref="formRef"
-                                :areas="areas" :dataValue="dataTelasById" />
+                            <FormImpuestos v-model:is-open="mostrarFormulario" :is-edit="editandoFormulario" ref="formRef"
+                                :areas="areas" :dataValue="dataImpuestosById" />
                         </el-col>
                     </el-row>
                 </template>
 
             </Formulario>
 
-            <el-table :data="telas" stripe style="width: 100%">
+            <el-table :data="impuestos" stripe style="width: 100%">
                 <el-table-column prop="nombre" label="Nombre" />
+                <el-table-column prop="valor" label="Valor" />
 
                 <el-table-column fixed="right" label="Acciones" min-width="120">
                     <template #default="registro">
@@ -40,15 +41,16 @@ import Header from '../../components/Header.vue';
 import { Delete, Edit } from "@element-plus/icons-vue"
 import { ElMessage } from 'element-plus'
 import axios from 'axios';
-import FormTallas from './components/formTelas.vue';
+import FormTallas from './components/formImpuestos.vue';
+import FormImpuestos from './components/formImpuestos.vue';
 
 
 const mostrarFormulario = ref(false)
 const editandoFormulario = ref(false)
 const formRef = ref()
 const areas = ref([])
-const telas = ref([])
-const dataTelasById = ref()
+const impuestos = ref([])
+const dataImpuestosById = ref()
 
 const abrirFormulario = () => {
     mostrarFormulario.value = true
@@ -60,26 +62,26 @@ const abrirFormulario = () => {
  * @param id 
  */
 const editarFormulario = async (id) => {
-    dataTelasById.value = await datosById(id)
-    console.log('editarFormulario',dataTelasById.value);
+    dataImpuestosById.value = await datosById(id)
+    console.log('editarFormulario',dataImpuestosById.value);
     
     mostrarFormulario.value = true
     editandoFormulario.value = true
 }
 
 /**
- * Valida el formulario al crear una tela
+ * Valida el formulario al crear una impuesto
  */
 const guardarDatos = async () => {
     const validacion = await formRef.value?.validarFormulario()
     if (validacion) {
-        await crearTelas();
+        await crearImpuestos();
     }
 }
 
 /**
  * Valida el formulario del front, si es correcto
- * ejecuta el metodo actualizarTela() para enviar la informacion
+ * ejecuta el metodo actualizarImpuesto() para enviar la informacion
  * al back y actualizar la informacion
  */
 const actualizarDatos = async () => {
@@ -87,18 +89,19 @@ const actualizarDatos = async () => {
     console.log("validar form",validacion);
     
     if (validacion) {
-        await actualizarTela();
+        await actualizarImpuesto();
     }
 }
 
 /**
- * Consume la api de telas para crear una talla en Base de datos
+ * Consume la api de impuestos para crear una talla en Base de datos
  */
-const crearTelas = async () => {
-    const url = 'http://localhost:8000/api/telas'
+const crearImpuestos = async () => {
+    const url = 'http://localhost:8000/api/impuestos'
 
     const dataFormulario = {
-        nombre: formRef.value.formulario.nombre
+        nombre: formRef.value.formulario.nombre,
+        valor: formRef.value.formulario.valor
     }
     try {
         axios.post(url, dataFormulario)
@@ -106,7 +109,7 @@ const crearTelas = async () => {
                 console.log(response);
                 formRef.value?.limpiarFormulario()
                 ElMessage({
-                    message: 'La Tela se creo con exito    .',
+                    message: 'El impuesto se creo con exito    .',
                     type: 'success',
                 })
                 datosTela()
@@ -118,46 +121,42 @@ const crearTelas = async () => {
             });
 
     } catch (error) {
-        console.error('error crear Tela ', error)
+        console.error('error crear impuesto ', error)
     }
 }
 
 /**
- * Consume la api de telas del back que retorna la informacion de la 
+ * Consume la api de impuestos del back que retorna la informacion de la 
  * talla por ID
  * @param id 
  */
 const datosById = async (id:any) => {
-    const url = `http://localhost:8000/api/tela/${id}`
+    const url = `http://localhost:8000/api/impuesto/${id}`
     try {
-        const response = await axios.get(url, {
-            params: {
-                id: id
-            }
-        })
+        const response = await axios.get(url)
         return response.data.message
 
     } catch (error) {
-        console.error('error crear tela ', error)
+        console.error('error crear impuesto ', error)
     }
 }
 
-const actualizarTela = async () => {
+const actualizarImpuesto = async () => {
     try {
-        console.log("acrtualiza talklk");
         
         const dataFormulario = {
-            id: dataTelasById.value.id,
-            nombre: formRef.value.formulario.nombre
+            id: dataImpuestosById.value.id,
+            nombre: formRef.value.formulario.nombre,
+            valor: formRef.value.formulario.valor,
         }
-        const url = `http://localhost:8000/api/telas`
+        const url = `http://localhost:8000/api/impuestos`
 
         axios.patch(url, dataFormulario)
             .then((response) => {
                 console.log(response);
                 formRef.value?.limpiarFormulario()
                 ElMessage({
-                    message: 'La tela se modificó con exito.',
+                    message: 'El impuesto se modificó con exito.',
                     type: 'success',
                 })
                 datosTela()
@@ -174,17 +173,17 @@ const actualizarTela = async () => {
 }
 
 /**
- * Elimina una tela
+ * Elimina una impuesto
  */
 const eliminarTela = async (id) => {
-    const url = `http://localhost:8000/api/telas/${id}`
+    const url = `http://localhost:8000/api/impuestos/${id}`
     try {
         axios.delete(url)
             .then((response) => {
                 console.log(response);
                 formRef.value?.limpiarFormulario()
                 ElMessage({
-                    message: 'La Tela se eliminó con exito    .',
+                    message: 'El impuesto se eliminó con exito    .',
                     type: 'success',
                 })
                 datosTela()
@@ -201,13 +200,13 @@ const eliminarTela = async (id) => {
 }
 const datosTela = async () => {
 
-    const url = 'http://localhost:8000/api/telas'
+    const url = 'http://localhost:8000/api/impuestos'
 
     try {
         axios.get(url)
             .then(function (response) {
                 console.log(response.data);
-                telas.value = response.data.message
+                impuestos.value = response.data.message
 
             })
             .catch(function (error) {
@@ -215,7 +214,7 @@ const datosTela = async () => {
             });
 
     } catch (error) {
-        console.error('error crear Tela ', error)
+        console.error('error crear impuesto ', error)
     }
 
 

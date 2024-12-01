@@ -8,6 +8,7 @@ import Colores from '../views/colores/colores.vue'
 import Telas from '../views/telas/telas.vue'
 import Contacto from '../views/contacto/contacto.vue'
 import Usuario from '../views/usuario/usuario.vue'
+import Impuestos from '../views/impuestos/impuestos.vue'
 
 const routes =[
 
@@ -56,6 +57,11 @@ const routes =[
     path:'/usuarios',
     name:'Usuario',
     component: Usuario,
+},
+{
+    path:'/impuestos',
+    name:'Impuestos',
+    component: Impuestos,
 },
 ]
 

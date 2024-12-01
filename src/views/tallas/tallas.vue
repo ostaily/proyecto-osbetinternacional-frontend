@@ -61,7 +61,6 @@ const abrirFormulario = () => {
  */
 const editarFormulario = async (id) => {
     dataTallasById.value = await datosById(id)
-    console.log('editarFormulario',dataTallasById.value);
     
     mostrarFormulario.value = true
     editandoFormulario.value = true
@@ -215,7 +214,7 @@ const datosTalla = async () => {
             });
 
     } catch (error) {
-        console.error('error crear Talla ', error)
+        console.error('error obtener Talla ', error)
     }
 
 

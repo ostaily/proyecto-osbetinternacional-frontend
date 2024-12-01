@@ -9,8 +9,8 @@
                 <template #slotForm>
                     <el-row :gutter="20">
                         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                            <FormTallas v-model:is-open="mostrarFormulario" :is-edit="editandoFormulario" ref="formRef"
-                                :areas="areas" :dataValue="dataTallasById" />
+                            <FormColores v-model:is-open="mostrarFormulario" :is-edit="editandoFormulario" ref="formRef"
+                                :areas="areas" :dataValue="dataColoresById" />
                         </el-col>
                     </el-row>
                 </template>
@@ -41,6 +41,7 @@ import { Delete, Edit } from "@element-plus/icons-vue"
 import { ElMessage } from 'element-plus'
 import axios from 'axios';
 import FormTallas from './components/formColores.vue';
+import FormColores from './components/formColores.vue';
 
 
 const mostrarFormulario = ref(false)
@@ -130,11 +131,7 @@ const crearColor = async () => {
 const datosById = async (id:any) => {
     const url = `http://localhost:8000/api/color/${id}`
     try {
-        const response = await axios.get(url, {
-            params: {
-                id: id
-            }
-        })
+        const response = await axios.get(url)
         return response.data.message
 
     } catch (error) {
