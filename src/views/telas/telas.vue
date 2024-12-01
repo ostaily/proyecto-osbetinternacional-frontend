@@ -1,30 +1,30 @@
 <template>
     <LayoutMain>
         <template #slotLayout>
-            <Header :titulo="'Tallas'" :tituloBoton="'Crear Talla'" :abrir="abrirFormulario" />
+            <Header :titulo="'Telas'" :tituloBoton="'Crear Talla'" :abrir="abrirFormulario" />
 
             
-            <Formulario :titulo="'Gestion de Tallas'" v-model:is-open="mostrarFormulario"
+            <Formulario :titulo="'Gestion de Telas'" v-model:is-open="mostrarFormulario"
                 :is-edit="editandoFormulario" @save="guardarDatos" @update="actualizarDatos">
                 <template #slotForm>
                     <el-row :gutter="20">
                         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                             <FormTallas v-model:is-open="mostrarFormulario" :is-edit="editandoFormulario" ref="formRef"
-                                :areas="areas" :dataValue="dataTallasById" />
+                                :areas="areas" :dataValue="dataTelasById" />
                         </el-col>
                     </el-row>
                 </template>
 
             </Formulario>
 
-            <el-table :data="tallas" stripe style="width: 100%">
+            <el-table :data="telas" stripe style="width: 100%">
                 <el-table-column prop="nombre" label="Nombre" />
 
                 <el-table-column fixed="right" label="Acciones" min-width="120">
                     <template #default="registro">
                         <el-button link type="primary" size="large" :icon="Edit" @click="editarFormulario(registro.row.id)"></el-button>
                         <el-button link type="danger" :icon="Delete"
-                            @click="eliminarTalla(registro.row.id)"></el-button>
+                            @click="eliminarTela(registro.row.id)"></el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -40,15 +40,15 @@ import Header from '../../components/Header.vue';
 import { Delete, Edit } from "@element-plus/icons-vue"
 import { ElMessage } from 'element-plus'
 import axios from 'axios';
-import FormTallas from './components/formTallas.vue';
+import FormTallas from './components/formTelas.vue';
 
 
 const mostrarFormulario = ref(false)
 const editandoFormulario = ref(false)
 const formRef = ref()
 const areas = ref([])
-const tallas = ref([])
-const dataTallasById = ref()
+const telas = ref([])
+const dataTelasById = ref()
 
 const abrirFormulario = () => {
     mostrarFormulario.value = true
@@ -60,25 +60,26 @@ const abrirFormulario = () => {
  * @param id 
  */
 const editarFormulario = async (id) => {
-    dataTallasById.value = await datosById(id)
+    dataTelasById.value = await datosById(id)
+    console.log('editarFormulario',dataTelasById.value);
     
     mostrarFormulario.value = true
     editandoFormulario.value = true
 }
 
 /**
- * Valida el formulario al crear una talla
+ * Valida el formulario al crear una tela
  */
 const guardarDatos = async () => {
     const validacion = await formRef.value?.validarFormulario()
     if (validacion) {
-        await crearTalla();
+        await crearTelas();
     }
 }
 
 /**
  * Valida el formulario del front, si es correcto
- * ejecuta el metodo actualizarTalla() para enviar la informacion
+ * ejecuta el metodo actualizarTela() para enviar la informacion
  * al back y actualizar la informacion
  */
 const actualizarDatos = async () => {
@@ -86,15 +87,15 @@ const actualizarDatos = async () => {
     console.log("validar form",validacion);
     
     if (validacion) {
-        await actualizarTalla();
+        await actualizarTela();
     }
 }
 
 /**
- * Consume la api de tallas para crear una talla en Base de datos
+ * Consume la api de telas para crear una talla en Base de datos
  */
-const crearTalla = async () => {
-    const url = 'http://localhost:8000/api/tallas'
+const crearTelas = async () => {
+    const url = 'http://localhost:8000/api/telas'
 
     const dataFormulario = {
         nombre: formRef.value.formulario.nombre
@@ -105,10 +106,10 @@ const crearTalla = async () => {
                 console.log(response);
                 formRef.value?.limpiarFormulario()
                 ElMessage({
-                    message: 'La Talla se creo con exito    .',
+                    message: 'La Tela se creo con exito    .',
                     type: 'success',
                 })
-                datosTalla()
+                datosTela()
                 mostrarFormulario.value = false
 
             })
@@ -117,17 +118,17 @@ const crearTalla = async () => {
             });
 
     } catch (error) {
-        console.error('error crear Talla ', error)
+        console.error('error crear Tela ', error)
     }
 }
 
 /**
- * Consume la api de tallas del back que retorna la informacion de la 
+ * Consume la api de telas del back que retorna la informacion de la 
  * talla por ID
  * @param id 
  */
 const datosById = async (id:any) => {
-    const url = `http://localhost:8000/api/talla/${id}`
+    const url = `http://localhost:8000/api/tela/${id}`
     try {
         const response = await axios.get(url, {
             params: {
@@ -137,29 +138,29 @@ const datosById = async (id:any) => {
         return response.data.message
 
     } catch (error) {
-        console.error('error crear talla ', error)
+        console.error('error crear tela ', error)
     }
 }
 
-const actualizarTalla = async () => {
+const actualizarTela = async () => {
     try {
         console.log("acrtualiza talklk");
         
         const dataFormulario = {
-            id: dataTallasById.value.id,
+            id: dataTelasById.value.id,
             nombre: formRef.value.formulario.nombre
         }
-        const url = `http://localhost:8000/api/tallas`
+        const url = `http://localhost:8000/api/telas`
 
         axios.patch(url, dataFormulario)
             .then((response) => {
                 console.log(response);
                 formRef.value?.limpiarFormulario()
                 ElMessage({
-                    message: 'La talla se modificó con exito.',
+                    message: 'La tela se modificó con exito.',
                     type: 'success',
                 })
-                datosTalla()
+                datosTela()
                 mostrarFormulario.value = false
 
             })
@@ -173,20 +174,20 @@ const actualizarTalla = async () => {
 }
 
 /**
- * Elimina una talla
+ * Elimina una tela
  */
-const eliminarTalla = async (id) => {
-    const url = `http://localhost:8000/api/tallas/${id}`
+const eliminarTela = async (id) => {
+    const url = `http://localhost:8000/api/telas/${id}`
     try {
         axios.delete(url)
             .then((response) => {
                 console.log(response);
                 formRef.value?.limpiarFormulario()
                 ElMessage({
-                    message: 'La Talla se eliminó con exito    .',
+                    message: 'La Tela se eliminó con exito    .',
                     type: 'success',
                 })
-                datosTalla()
+                datosTela()
                 mostrarFormulario.value = false
 
             })
@@ -198,15 +199,15 @@ const eliminarTalla = async (id) => {
     }
 
 }
-const datosTalla = async () => {
+const datosTela = async () => {
 
-    const url = 'http://localhost:8000/api/tallas'
+    const url = 'http://localhost:8000/api/telas'
 
     try {
         axios.get(url)
             .then(function (response) {
                 console.log(response.data);
-                tallas.value = response.data.message
+                telas.value = response.data.message
 
             })
             .catch(function (error) {
@@ -214,7 +215,7 @@ const datosTalla = async () => {
             });
 
     } catch (error) {
-        console.error('error obtener Talla ', error)
+        console.error('error crear Tela ', error)
     }
 
 
@@ -222,7 +223,7 @@ const datosTalla = async () => {
 
 
 onMounted(() => {
-    datosTalla()
+    datosTela()
 })
 
 </script>

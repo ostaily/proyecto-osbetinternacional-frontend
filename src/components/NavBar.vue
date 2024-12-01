@@ -17,7 +17,7 @@
       </el-menu-item>
   
       <el-sub-menu index="1" >
-        <template #title>Oscar Sierra</template>
+        <template #title>Bastian Majin</template>
         <el-menu-item index="2-1">Perfil</el-menu-item>
         <el-menu-item index="2-2">Cerrar Sesion</el-menu-item>
 
