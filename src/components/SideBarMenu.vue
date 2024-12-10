@@ -20,8 +20,8 @@
             <el-menu-item index="tallas">Tallas</el-menu-item>
             <el-menu-item index="colores">Colores</el-menu-item>
             <el-menu-item index="telas">Telas</el-menu-item>
-            <el-menu-item index="contactos">Contacto</el-menu-item>
-            <!-- <el-menu-item index="usuarios">Usuarios</el-menu-item> -->
+            <!-- <el-menu-item index="contactos">Contacto</el-menu-item> -->
+            <el-menu-item index="usuarios">Usuarios</el-menu-item>
             <el-menu-item index="impuestos">Impuestos</el-menu-item>
           </el-sub-menu>
 

@@ -11,6 +11,14 @@
           <el-form-item label="Nombre " prop="nombre">
               <el-input v-model="formulario.nombre" />
           </el-form-item>
+          <el-form-item label="Numero telefonico" prop="Numero telefonico">
+              <el-input v-model="formulario.valor" />
+          </el-form-item>
+          <el-form-item label="Cargo" prop="Cargo">
+              <el-input v-model="formulario.valor" />
+          </el-form-item>
+          
+
         
 
       </el-card>

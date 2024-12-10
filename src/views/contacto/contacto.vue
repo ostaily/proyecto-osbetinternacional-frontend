@@ -23,6 +23,7 @@
 
           <el-table :data="tableData" stripe style="width: 100%">
             <el-table-column prop="name" label="Nombre" width="180" />
+            <el-table-column prop="phone" label="Numero" width="180" />
             <el-table-column prop="charge" label="Cargo" width="180" />
             <el-table-column fixed="right" label="Acciones" min-width="120">
               <template #default>
@@ -63,8 +64,9 @@
 
   const tableData = [
   {
-    name: 'Alexander',
+    name: 'Alejandro',
     charge: 'Piloto',
+    phone: '320 582 96 37',
   }
 ]
   </script>
